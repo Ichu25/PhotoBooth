@@ -5,7 +5,7 @@ body {
 
 h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
+} 
 
 button {
     transition: background-color 0.3s, transform 0.2s;
@@ -19,22 +19,17 @@ button:hover {
 /* Box untuk header (h1 dan p) */
 .text-center.mb-8 {
     border: 2px solid white;
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 8px;
     display: inline-block;
-}
-
-/* Box untuk nama di footer */
-footer p {
-    border: 2px solid white;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    display: inline-block;
+    margin-top: 50px;
 }
 
 footer {
     font-size: 0.9rem;
     color: #ffffff;
+    padding-inline-end: 0 0 1.5px;
+    margin-top: 80px;
 }
 
 @media (max-width: 768px) {
