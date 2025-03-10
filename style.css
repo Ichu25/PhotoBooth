@@ -1,227 +1,53 @@
-:root {
-    --primary-color: #a51e93;
-    --secondary-color: #ffb413;
-    --background-color: #f0f0f0;
-    --text-color: #050505;
-    --white-color: #fff;
-    --shadow-color: rgba(0, 0, 0, 0.15);
-}
-
+/* style.css */
 body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
+    font-family: 'Arial', sans-serif;
 }
 
-.photobooth-body {
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT_ByVtiIdcrmE56rq4ulR8rg_JId6u8wSAA&s');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+h1 {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.title-container {
-    background-color: rgba(255, 255, 255, 0.253);
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 30px;
-    text-align: center;
-    width: 550px;
-    height: 50px;
-    box-shadow: 0 4px 10px var(--shadow-color);
-    transition: box-shadow 0.3s ease;
+button {
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-.title-container:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
 }
 
-h2 {
-    margin-top: 0;
-    color: #fc497f;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-p {
-    margin-top: -15px;
-    color: #000;
-}
-
-.photobooth-content {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    max-width: 900px;
-    margin-top: 20px;
-}
-
-.camera-container {
-    width: 48%;
-    height: 350px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--shadow-color);
-    position: relative;
-    transition: box-shadow 0.3s ease;
-}
-
-.camera-container:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-}
-
-#video-preview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-#capture-button {
-    position: absolute;
-    bottom: 10px;
-    background-color: transparent;
-    border: none;
-    font-size: 2.5em;
-    color: var(--secondary-color);
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-#capture-button:hover {
-    color: var(--primary-color);
-}
-
-.captured-images-container {
-    width: 48%;
-    height: 350px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
-    padding: -10px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--shadow-color);
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-}
-
-.captured-images-container:hover {
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-}
-
-.captured-image-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px var(--shadow-color);
-    transition: box-shadow 0.3s ease;
-}
-
-.captured-image-container:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-}
-
-.controls-container {
-    width: 90%;
-    max-width: 900px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px var(--shadow-color);
-    transition: box-shadow 0.3s ease;
-}
-
-.controls-container:hover {
-    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
-}
-
-.control-button, .download-button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 3px 8px var(--shadow-color);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    font-size: 0.9em;
-}
-
-.control-button:hover, .download-button:hover {
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
-}
-
-.control-button {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-}
-
-.download-button {
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-}
-
-.footer {
-    margin-top: 50px;
-    text-align: center;
-    padding: 15px;
-    background: linear-gradient(90deg, #ff69b4, #e91e63);
-    width: 100%;
-    font-weight: bold;
-    color: #fff;
-    box-shadow: 0 3px 8px var(--shadow-color);
-}
-
-.dropdown-container {
-    position: relative;
+/* Box untuk header (h1 dan p) */
+.text-center.mb-8 {
+    border: 2px solid white;
+    padding: 1rem;
+    border-radius: 8px;
     display: inline-block;
 }
 
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: white;
-    box-shadow: 0px 4px 8px var(--shadow-color);
-    border-radius: 6px;
-    min-width: 120px;
-    z-index: 10;
-    padding: 5px 0;
-    transition: box-shadow 0.3s ease;
+/* Box untuk nama di footer */
+footer p {
+    border: 2px solid white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: inline-block;
 }
 
-.dropdown-menu:hover {
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+footer {
+    font-size: 0.9rem;
+    color: #ffffff;
 }
 
-.dropdown-item {
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    padding: 8px 15px;
-    cursor: pointer;
-    font-size: 0.9em;
-    color: var(--text-color);
-    transition: background-color 0.3s ease;
+@media (max-width: 768px) {
+    .bg-teal-600 {
+        width: 90%;
+    }
+    .bg-teal-400 {
+        width: 80%;
+    }
 }
 
-.dropdown-item:hover {
-    background-color: var(--secondary-color);
-    color: var(--white-color);
+/* Override untuk tombol capture agar posisinya tetap */
+#capture:hover,
+#capture:active {
+    transform: translateX(-50%);
 }

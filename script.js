@@ -1,104 +1,153 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const video = document.getElementById("video-preview");
-    const canvas = document.getElementById("canvas-output");
-    const captureButton = document.getElementById("capture-button");
-    const downloadButton = document.getElementById("download-button");
-    const frameButton = document.getElementById("frame-button");
-    const printButton = document.getElementById("print-button");
-    const emailButton = document.getElementById("email-button");
-    const filterButton = document.getElementById("filter-button");
-    const capturedImagesContainer = document.getElementById("captured-images");
-    const filterDropdown = document.getElementById("filter-dropdown");
+document.addEventListener('DOMContentLoaded', function() {
+    const cameraVideo = document.getElementById('cameraVideo');
+    const cameraCanvas = document.getElementById('cameraCanvas');
+    const photo1 = document.getElementById('photo1');
+    const photo2 = document.getElementById('photo2');
+    const photo3 = document.getElementById('photo3');
+    const photo4 = document.getElementById('photo4');
+    let currentPhoto = null;
 
-    let capturedImages = [];
-
-    // Fungsi untuk menampilkan atau menyembunyikan dropdown filter
-    filterButton.addEventListener("click", function () {
-        filterDropdown.style.display = filterDropdown.style.display === "block" ? "none" : "block";
-    });
-
-    // Mendapatkan akses ke kamera
-    navigator.mediaDevices
-        .getUserMedia({ video: { width: 1920, height: 1080 } })
-        .then((stream) => {
-            video.srcObject = stream;
+    // Akses Kamera
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            cameraVideo.srcObject = stream;
         })
-        .catch((error) => {
-            console.error("Error accessing camera:", error);
+        .catch(function(error) {
+            console.error('Gagal mengakses kamera:', error);
+            alert('Gagal mengakses kamera. Pastikan izin kamera diberikan dan situs web menggunakan HTTPS.');
         });
 
-    // Fungsi untuk menangkap gambar
-    captureButton.addEventListener("click", function () {
-        const ctx = canvas.getContext("2d");
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-        const imageDataURL = canvas.toDataURL("image/png");
-
-        // Jika sudah ada 6 gambar, hapus gambar pertama (gambar tertua)
-        if (capturedImages.length >= 6) {
-            capturedImages.shift();
-            capturedImagesContainer.removeChild(capturedImagesContainer.firstChild);
-        }
-
-        // Buat elemen gambar baru
-        const imageContainer = document.createElement("div");
-        imageContainer.className = "captured-image-container";
-
-        const image = document.createElement("img");
-        image.src = imageDataURL;
-        image.className = "captured-image";
-
-        imageContainer.appendChild(image);
-        capturedImagesContainer.appendChild(imageContainer);
-
-        // Tambahkan gambar ke array
-        capturedImages.push(imageContainer);
-    });
-
-    // Fungsi untuk mendownload gambar
-    downloadButton.addEventListener("click", function () {
-        const image = canvas.toDataURL("image/jpeg", 1.0);
-        const link = document.createElement("a");
-        link.download = "photobooth.jpg";
-        link.href = image;
-        link.click();
-    });
-
-    // Fungsi untuk mencetak gambar
-    printButton.addEventListener("click", function () {
-        window.print();
-    });
-
-    // Fungsi untuk mengirim email dengan gambar
-    emailButton.addEventListener("click", function () {
-        const email = prompt("Enter email address:");
-        if (email) {
-            const image = canvas.toDataURL("image/jpeg", 1.0);
-            const link = document.createElement("a");
-            link.href = `mailto:${email}?subject=Your%20Photobooth%20Image&body=Here%20is%20your%20image%20from%20the%20photobooth.%0D%0A%0D%0A<img src="${image}" alt="Photobooth Image">`;
-            link.click();
-        }
-    });
-
-    // Fungsi untuk menerapkan filter
-    function applyFilter(filter) {
-        if (filter === "grayscale") {
-            video.style.filter = "grayscale(100%)";
-        } else if (filter === "sepia") {
-            video.style.filter = "sepia(100%)";
-        } else {
-            video.style.filter = "none";
-        }
+    // Fungsi untuk mengambil gambar dengan ukuran 150x150
+    function takePicture() {
+        // Membuat canvas off-screen dengan ukuran 150x150
+        let offCanvas = document.createElement('canvas');
+        offCanvas.width = 150;
+        offCanvas.height = 150;
+        let ctx = offCanvas.getContext('2d');
+        // Menggambar video ke canvas dengan skala dari ukuran asli ke 150x150
+        ctx.drawImage(cameraVideo, 0, 0, cameraVideo.videoWidth, cameraVideo.videoHeight, 0, 0, 150, 150);
+        const imageDataURL = offCanvas.toDataURL('image/png');
+        return imageDataURL;
     }
 
-    // Event listener untuk tombol filter
-    document.querySelectorAll(".dropdown-item").forEach((item) => {
-        item.addEventListener("click", function () {
-            const filter = this.getAttribute("onclick").match(/'([^']+)'/)[1];
-            applyFilter(filter);
-            filterDropdown.style.display = "none"; // Sembunyikan dropdown setelah memilih filter
+    // Tombol Capture (Icon Camera) untuk mengambil gambar
+    document.getElementById('capture').addEventListener('click', function() {
+        const imageDataURL = takePicture();
+        if (!photo1.src || photo1.src === 'https://storage.googleapis.com/a1aa/image/8zAtxDrmOR7BRbgdCejk4TpZIAzNgjnZkvf6thyF8Ow.jpg') {
+            photo1.src = imageDataURL;
+            currentPhoto = photo1;
+        } else if (!photo2.src || photo2.src === 'https://storage.googleapis.com/a1aa/image/b_uTReThpHHTeVFjYwBPQRsndvltTlIQy3N8_3rX2oM.jpg') {
+            photo2.src = imageDataURL;
+            currentPhoto = photo2;
+        } else if (!photo3.src || photo3.src === 'https://storage.googleapis.com/a1aa/image/vwbJs1_F9ySD9xTkkgUTNFutqXRO54CqalBGodoiMxM.jpg') {
+            photo3.src = imageDataURL;
+            currentPhoto = photo3;
+        } else if (!photo4.src || photo4.src === 'https://storage.googleapis.com/a1aa/image/BIvisTGQ04fiP93oQQeSAP5m5BcxrMkHIhUXQCKqSLE.jpg') {
+            photo4.src = imageDataURL;
+            currentPhoto = photo4;
+        } else {
+            alert('Semua slot foto sudah terisi.');
+        }
+    });
+
+    // Tombol Foto Frame untuk mengubah warna frame dari hasil gambar
+    document.getElementById('fotoFrame').addEventListener('click', function() {
+        if (currentPhoto) {
+            // Definisikan pilihan warna untuk frame
+            const colors = ["red", "green", "blue", "yellow", "purple"];
+            // Ambil indeks warna saat ini dari atribut data (default ke 0)
+            let currentIndex = parseInt(currentPhoto.getAttribute('data-color-index')) || 0;
+            const newColor = colors[currentIndex % colors.length];
+            // Terapkan border dengan warna baru
+            currentPhoto.style.border = "5px solid " + newColor;
+            // Perbarui indeks untuk klik selanjutnya
+            currentPhoto.setAttribute('data-color-index', currentIndex + 1);
+        } else {
+            alert('Pilih foto terlebih dahulu.');
+        }
+    });
+
+    // Tombol Edit Filter (belum diimplementasikan)
+    document.getElementById('editFilter').addEventListener('click', function() {
+        if (currentPhoto) {
+            alert('Fitur Edit Filter belum tersedia. Foto yang akan diedit: ' + currentPhoto.id);
+            // Tambahkan logika untuk edit filter di sini
+        } else {
+            alert('Pilih foto terlebih dahulu.');
+        }
+    });
+
+    // Tombol Print
+    document.getElementById('print').addEventListener('click', function() {
+        if (currentPhoto) {
+            window.print();
+        } else {
+            alert('Pilih foto terlebih dahulu.');
+        }
+    });
+
+    // Tombol Send Email (gambar dikirim dalam format JPEG)
+    document.getElementById('sendEmail').addEventListener('click', function() {
+        if (currentPhoto) {
+            let img = new Image();
+            img.src = currentPhoto.src;
+            img.onload = function() {
+                let offCanvas = document.createElement('canvas');
+                const maxWidth = 640;
+                let scale = Math.min(1, maxWidth / img.width);
+                offCanvas.width = img.width * scale;
+                offCanvas.height = img.height * scale;
+                let offCtx = offCanvas.getContext('2d');
+                offCtx.drawImage(img, 0, 0, offCanvas.width, offCanvas.height);
+                const jpegDataURL = offCanvas.toDataURL('image/jpeg', 0.5);
+
+                const email = 'your_email@example.com'; // Ganti dengan email Anda
+                const subject = 'Foto Photobooth';
+                const body = 'Berikut adalah foto photobooth Anda: ' + jpegDataURL;
+                const mailtoLink = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+                window.location.href = mailtoLink;
+            };
+        } else {
+            alert('Pilih foto terlebih dahulu.');
+        }
+    });
+
+    // Tombol Download
+    document.getElementById('download').addEventListener('click', function() {
+        if (currentPhoto) {
+            const a = document.createElement('a');
+            a.href = currentPhoto.src;
+            a.download = 'photo.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            alert('Pilih foto terlebih dahulu.');
+        }
+    });
+
+    // Event listener untuk delete icon pada setiap foto hasil capture
+    document.querySelectorAll('.delete-icon').forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation(); // agar tidak memicu event lain (misalnya memilih foto)
+            const photoId = button.getAttribute('data-photo');
+            const photo = document.getElementById(photoId);
+            let defaultSrc = "";
+            if (photoId === "photo1") {
+                defaultSrc = "https://storage.googleapis.com/a1aa/image/8zAtxDrmOR7BRbgdCejk4TpZIAzNgjnZkvf6thyF8Ow.jpg";
+            } else if (photoId === "photo2") {
+                defaultSrc = "https://storage.googleapis.com/a1aa/image/b_uTReThpHHTeVFjYwBPQRsndvltTlIQy3N8_3rX2oM.jpg";
+            } else if (photoId === "photo3") {
+                defaultSrc = "https://storage.googleapis.com/a1aa/image/vwbJs1_F9ySD9xTkkgUTNFutqXRO54CqalBGodoiMxM.jpg";
+            } else if (photoId === "photo4") {
+                defaultSrc = "https://storage.googleapis.com/a1aa/image/BIvisTGQ04fiP93oQQeSAP5m5BcxrMkHIhUXQCKqSLE.jpg";
+            }
+            photo.src = defaultSrc;
+            photo.style.border = "none";
+            photo.removeAttribute('data-color-index');
+            if (currentPhoto && currentPhoto.id === photoId) {
+                currentPhoto = null;
+            }
         });
     });
 });

@@ -1,64 +1,70 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photobooth</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Photo Booth</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
 </head>
-<body>
-
-    <div class="photobooth-body">
-        <!-- Judul -->
-        <div class="title-container">
-            <h2>TAKE YOUR BEST MOMENT</h2>
-            <p>Try and select your best frame in this photobooth</p>
-        </div>
-
-        <!-- Kontainer Utama -->
-        <div class="photobooth-content">
-            <!-- Box Kamera -->
-            <div class="camera-container">
-                <video id="video-preview" autoplay></video>
-                <canvas id="canvas-output" style="display: none;"></canvas>
-                <button id="capture-button">
-                    <i class="fas fa-camera"></i>
-                </button>
-            </div>
-
-            <!-- Box Hasil Foto -->
-            <div class="captured-images-container">
-                <div id="captured-images"></div>
-            </div>
-        </div>
-
-        <!-- Tombol Kontrol -->
-        <div class="controls-container">
-            <button class="control-button" id="frame-button">Foto Frame</button>
-
-            <!-- Tombol Edit Filter dengan Dropdown -->
-            <div class="dropdown-container">
-                <button class="control-button" id="filter-button">Edit Filter ▼</button>
-                <div class="dropdown-menu" id="filter-dropdown">
-                    <button class="dropdown-item" onclick="applyFilter('reset')">Reset</button>
-                    <button class="dropdown-item" onclick="applyFilter('grayscale')">Grayscale</button>
-                    <button class="dropdown-item" onclick="applyFilter('sepia')">Sepia</button>
-                </div>
-            </div>
-
-            <button class="control-button" id="print-button">Print</button>
-            <button class="control-button" id="email-button">Send Email</button>
-            <button class="download-button" id="download-button">Download</button>
-        </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <span>@dianwahdini25</span>
-        </footer>
+<body class="bg-gradient-to-r from-teal-400 to-yellow-300 flex flex-col items-center justify-center min-h-screen">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-white">TAKE YOUR BEST MOMENT</h1>
+        <p class="text-lg text-black">Try and select your best frame in this photobooth</p>
     </div>
-
+    <div class="flex flex-col md:flex-row items-center justify-center space-y-8 md:space-y-0 md:space-x-8">
+        <div class="bg-teal-600 rounded-lg p-4 flex flex-col items-center">
+            <!-- Tambahkan class 'relative' agar elemen child dapat diposisikan absolute -->
+            <div id="cameraBox" class="bg-teal-400 w-64 h-64 rounded-lg flex items-center justify-center mb-4 relative">
+                <video id="cameraVideo" class="w-full h-full object-cover rounded-lg" autoplay></video>
+                <canvas id="cameraCanvas" class="hidden"></canvas>
+                <!-- Tombol capture dengan icon kamera -->
+                <button id="capture" class="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-white text-teal-600 p-2 rounded-full shadow-lg focus:outline-none transition-transform duration-150 active:scale-100">
+                    <i class="fas fa-camera fa-lg"></i>
+                </button>                
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button id="fotoFrame" class="bg-white text-teal-600 py-2 px-4 rounded">Foto Frame</button>
+                <button id="editFilter" class="bg-white text-teal-600 py-2 px-4 rounded">Edit Filter</button>
+                <button id="print" class="bg-white text-teal-600 py-2 px-4 rounded">Print</button>
+                <button id="sendEmail" class="bg-white text-teal-600 py-2 px-4 rounded">Send Email</button>
+            </div>
+        </div>
+        <div class="bg-teal-600 rounded-lg p-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="relative inline-block">
+                  <img id="photo1" alt="Photo 1" class="rounded-lg" height="150" src="https://storage.googleapis.com/a1aa/image/8zAtxDrmOR7BRbgdCejk4TpZIAzNgjnZkvf6thyF8Ow.jpg" width="150"/>
+                  <button class="delete-icon absolute top-1 right-1 bg-white-600 text-black p-1 rounded-full" data-photo="photo1">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+                <div class="relative inline-block">
+                  <img id="photo2" alt="Photo 2" class="rounded-lg" height="150" src="https://storage.googleapis.com/a1aa/image/b_uTReThpHHTeVFjYwBPQRsndvltTlIQy3N8_3rX2oM.jpg" width="150"/>
+                  <button class="delete-icon absolute top-1 right-1 bg-white-600 text-black p-1 rounded-full" data-photo="photo2">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+                <div class="relative inline-block">
+                  <img id="photo3" alt="Photo 3" class="rounded-lg" height="150" src="https://storage.googleapis.com/a1aa/image/vwbJs1_F9ySD9xTkkgUTNFutqXRO54CqalBGodoiMxM.jpg" width="150"/>
+                  <button class="delete-icon absolute top-1 right-1 bg-white-600 text-black p-1 rounded-full" data-photo="photo3">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+                <div class="relative inline-block">
+                  <img id="photo4" alt="Photo 4" class="rounded-lg" height="150" src="https://storage.googleapis.com/a1aa/image/BIvisTGQ04fiP93oQQeSAP5m5BcxrMkHIhUXQCKqSLE.jpg" width="150"/>
+                  <button class="delete-icon absolute top-1 right-1 bg-white-600 text-black p-1 rounded-full" data-photo="photo4">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>              
+            <button id="download" class="bg-white text-teal-600 py-2 px-4 rounded mt-4">Download</button>
+            <button id="delete" class="bg-white text-teal-600 py-2 px-4 rounded mt-4">Delete</button>
+        </div>
+    </div>
+    <footer class="mt-8">
+        <p class="text-teal-800">@dianwahdini25</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
