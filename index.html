@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobooth</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+    <div class="photobooth-body">
+        <!-- Judul -->
+        <div class="title-container">
+            <h2>TAKE YOUR BEST MOMENT</h2>
+            <p>Try and select your best frame in this photobooth</p>
+        </div>
+
+        <!-- Kontainer Utama -->
+        <div class="photobooth-content">
+            <!-- Box Kamera -->
+            <div class="camera-container">
+                <video id="video-preview" autoplay></video>
+                <canvas id="canvas-output" style="display: none;"></canvas>
+                <button id="capture-button">
+                    <i class="fas fa-camera"></i>
+                </button>
+            </div>
+
+            <!-- Box Hasil Foto -->
+            <div class="captured-images-container">
+                <div id="captured-images"></div>
+            </div>
+        </div>
+
+        <!-- Tombol Kontrol -->
+        <div class="controls-container">
+            <button class="control-button" id="frame-button">Foto Frame</button>
+
+            <!-- Tombol Edit Filter dengan Dropdown -->
+            <div class="dropdown-container">
+                <button class="control-button" id="filter-button">Edit Filter ▼</button>
+                <div class="dropdown-menu" id="filter-dropdown">
+                    <button class="dropdown-item" onclick="applyFilter('reset')">Reset</button>
+                    <button class="dropdown-item" onclick="applyFilter('grayscale')">Grayscale</button>
+                    <button class="dropdown-item" onclick="applyFilter('sepia')">Sepia</button>
+                </div>
+            </div>
+
+            <button class="control-button" id="print-button">Print</button>
+            <button class="control-button" id="email-button">Send Email</button>
+            <button class="download-button" id="download-button">Download</button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>@dianwahdini25</span>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
