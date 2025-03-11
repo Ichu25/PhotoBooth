@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Tombol Edit Filter
+    // Tombol Edit Filter (belum diimplementasikan)
     document.getElementById('editFilter').addEventListener('click', function() {
         if (currentPhoto) {
             document.getElementById('filterOptions').style.display = 'block';
