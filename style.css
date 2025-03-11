@@ -9,6 +9,7 @@ h1 {
 
 button {
     transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 button:hover {
@@ -20,16 +21,19 @@ button:hover {
 .text-center.mb-8 {
     border: 2px solid white;
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 30px;
     display: inline-block;
     margin-top: 50px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(236, 221, 12, 0.74);
 }
 
 footer {
     font-size: 0.9rem;
     color: #ffffff;
     padding-inline-end: 0 0 1.5px;
-    margin-top: 80px;
+    margin-top: 50px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 768px) {
