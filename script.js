@@ -67,35 +67,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Tombol Edit Filter (belum diimplementasikan)
-    document.getElementById('editFilter').addEventListener('click', function() {
+    // Tombol Filter
+    document.getElementById('Filter').addEventListener('click', function() {
         if (currentPhoto) {
-            document.getElementById('filterOptions').style.display = 'block';
+            // Terapkan filter mempercerah dan memperjernih
+            currentPhoto.style.filter = 'brightness(1.2) contrast(1.1) saturate(1.2)';
+            alert('Filter mempercerah dan memperjernih diterapkan.');
         } else {
             alert('Pilih foto terlebih dahulu.');
-        }
-    });
-
-    // Filter Mempercantik
-    document.getElementById('beautify').addEventListener('click', function() {
-        if (currentPhoto) {
-            // Logika untuk filter mempercantik
-            currentPhoto.style.filter = 'brightness(1.2) contrast(1.1) saturate(1.2)';
-            alert('Filter mempercantik diterapkan.');
-        }
-    });
-
-    // Filter Telinga Kucing
-    document.getElementById('catEars').addEventListener('click', function() {
-        if (currentPhoto) {
-            // Logika untuk menambahkan telinga kucing
-            const catEars = document.createElement('img');
-            catEars.src = 'path/to/cat-ears.png'; // Ganti dengan path gambar telinga kucing
-            catEars.style.position = 'absolute';
-            catEars.style.top = '10%'; // Sesuaikan posisi
-            catEars.style.left = '30%'; // Sesuaikan posisi
-            document.getElementById('photoContainer').appendChild(catEars);
-            alert('Filter telinga kucing diterapkan.');
         }
     });
 
