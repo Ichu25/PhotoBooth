@@ -24,8 +24,17 @@ document.addEventListener('DOMContentLoaded', function() {
         offCanvas.width = 150;
         offCanvas.height = 150;
         let ctx = offCanvas.getContext('2d');
+    
+        // Membalik gambar secara horizontal (menghindari efek mirror)
+        ctx.translate(offCanvas.width, 0); // Pindahkan titik awal ke kanan
+        ctx.scale(-1, 1); // Balikkan gambar secara horizontal
+    
         // Menggambar video ke canvas dengan skala dari ukuran asli ke 150x150
         ctx.drawImage(cameraVideo, 0, 0, cameraVideo.videoWidth, cameraVideo.videoHeight, 0, 0, 150, 150);
+    
+        // Kembalikan transformasi ke normal (opsional jika ada operasi lain)
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+    
         const imageDataURL = offCanvas.toDataURL('image/png');
         return imageDataURL;
     }
@@ -53,15 +62,23 @@ document.addEventListener('DOMContentLoaded', function() {
     // Tombol Foto Frame untuk mengubah warna frame dari hasil gambar
     document.getElementById('fotoFrame').addEventListener('click', function() {
         if (currentPhoto) {
-            // Definisikan pilihan warna untuk frame
-            const colors = ["red", "green", "blue", "yellow", "purple"];
-            // Ambil indeks warna saat ini dari atribut data (default ke 0)
-            let currentIndex = parseInt(currentPhoto.getAttribute('data-color-index')) || 0;
-            const newColor = colors[currentIndex % colors.length];
-            // Terapkan border dengan warna baru
-            currentPhoto.style.border = "5px solid " + newColor;
+            // Definisikan pilihan gaya frame
+            const frames = [
+                { border: "5px solid red", boxShadow: "0 0 10px red" },
+                { border: "5px dashed green", boxShadow: "0 0 10px green" },
+                { border: "5px dotted blue", boxShadow: "0 0 10px blue" },
+                { border: "10px double yellow", boxShadow: "0 0 15px yellow" },
+                { border: "5px solid purple", borderRadius: "50%", boxShadow: "0 0 10px purple" }
+            ];
+            // Ambil indeks gaya saat ini dari atribut data (default ke 0)
+            let currentIndex = parseInt(currentPhoto.getAttribute('data-frame-index')) || 0;
+            const newFrame = frames[currentIndex % frames.length];
+            // Terapkan gaya frame baru
+            currentPhoto.style.border = newFrame.border;
+            currentPhoto.style.boxShadow = newFrame.boxShadow || "none";
+            currentPhoto.style.borderRadius = newFrame.borderRadius || "0";
             // Perbarui indeks untuk klik selanjutnya
-            currentPhoto.setAttribute('data-color-index', currentIndex + 1);
+            currentPhoto.setAttribute('data-frame-index', currentIndex + 1);
         } else {
             alert('Pilih foto terlebih dahulu.');
         }

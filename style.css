@@ -28,6 +28,11 @@ button:hover {
     text-shadow: 2px 2px 4px rgba(236, 221, 12, 0.74);
 }
 
+#cameraVideo {
+    transform: scaleX(-1); /* Membalik tampilan video secara horizontal */
+    -webkit-transform: scaleX(-1); /* Dukungan untuk browser berbasis WebKit */
+}
+
 footer {
     font-size: 0.9rem;
     color: #ffffff;
