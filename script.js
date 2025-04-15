@@ -1,3 +1,15 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const splashScreen = document.getElementById('splashScreen');
+
+    // Hilangkan splash screen setelah 3 detik
+    setTimeout(() => {
+        splashScreen.style.opacity = '0'; // Tambahkan efek transisi
+        setTimeout(() => {
+            splashScreen.style.display = 'none'; // Sembunyikan elemen setelah transisi selesai
+        }, 500); // Waktu transisi sesuai dengan CSS (0.5s)
+    }, 3000); // Tampilkan splash screen selama 3 detik
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const cameraVideo = document.getElementById('cameraVideo');
     const cameraCanvas = document.getElementById('cameraCanvas');
@@ -96,11 +108,114 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Tombol Print
-    document.getElementById('print').addEventListener('click', function() {
-        if (currentPhoto) {
-            window.print();
+    document.getElementById('print').addEventListener('click', function () {
+    const photos = [photo1, photo2, photo3, photo4];
+    const validPhotos = photos.filter(photo => photo.src && !photo.src.includes('storage.googleapis.com')); // Filter foto yang valid
+
+    if (validPhotos.length > 0) {
+        const printWindow = window.open('', '_blank');
+        const photoHTML = `
+            <html>
+            <head>
+            <title>Print Photo</title>
+            <style>
+                body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                height: 100vh;
+                background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+                font-family: Arial, sans-serif;
+                animation: backgroundAnimation 10s infinite alternate;
+                }
+                @keyframes backgroundAnimation {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 100% 50%; }
+                }
+                h1 {
+                font-size: 2em;
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+                }
+                h3 {
+                font-size: 1.5em;
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+                }
+                .print-container {
+                width: 100%;
+                max-width: 800px;
+                height: 100%;
+                max-height: 1100px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 10px;
+                padding: 20px;
+                box-sizing: border-box;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                overflow: hidden;
+                position: relative;
+                }
+                .print-container::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('https://i.imgur.com/9Q9QZQe.png') no-repeat center center;
+                background-size: cover;
+                opacity: 0.2;
+                z-index: -1;
+                }
+                .photo-frame {
+                width: 100%;
+                height: 100%;
+                background: white;
+                border: 3px solid #ccc;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                }
+                .photo-frame img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                }
+            </style>
+            </head>
+            <body>
+            <h1>PHOTO BOOTH</h1>
+            <h3>"Create your own sunshine☺️"</h3>
+            <div class="print-container">
+                ${validPhotos.map(photo => `
+                <div class="photo-frame">
+                    <img src="${photo.src}" alt="Photo Booth Image">
+                </div>
+                `).join('')}
+            </div>
+            </body>
+            </html>
+        `;
+        printWindow.document.open();
+        printWindow.document.write(photoHTML);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
         } else {
-            alert('Pilih foto terlebih dahulu.');
+        alert('Tidak ada foto yang valid untuk dicetak.');
         }
     });
 

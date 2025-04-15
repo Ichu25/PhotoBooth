@@ -1,4 +1,95 @@
 /* style.css */
+/* Splash Screen */
+#splashScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #38b2ac, #fbbf24); /* Gradasi sama seperti tampilan utama */
+    display: flex;
+    flex-direction: column; /* Mengatur elemen anak secara vertikal */
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    transition: opacity 0.5s ease-out;
+    animation: fadeIn 1s ease-out, gradientShift 3s infinite alternate;
+}
+
+/* Animasi teks */
+#splashScreen h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: textGlow 2s infinite alternate;
+    margin-bottom: 1rem; /* Menambahkan jarak antara h1 dan p */
+    text-align: center;
+}
+
+#splashScreen p {
+    font-size: 2rem; /* Ukuran font lebih kecil dari h1 */
+    font-weight: bold;
+    color: #f87171;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: textGlow 2s infinite alternate;
+    text-align: center;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    #splashScreen h1 {
+        font-size: 2.5rem; /* Ukuran font lebih kecil untuk layar kecil */
+    }
+
+    #splashScreen p {
+        font-size: 1.5rem; /* Ukuran font lebih kecil untuk layar kecil */
+    }
+}
+
+@media (max-width: 480px) {
+    #splashScreen h1 {
+        font-size: 2rem; /* Ukuran font lebih kecil untuk layar sangat kecil */
+    }
+
+    #splashScreen p {
+        font-size: 1.2rem; /* Ukuran font lebih kecil untuk layar sangat kecil */
+    }
+}
+
+/* Animasi gradasi background */
+@keyframes gradientShift {
+    0% {
+        background: linear-gradient(to right, #38b2ac, #fbbf24);
+    }
+    50% {
+        background: linear-gradient(to right, #fbbf24, #f87171);
+    }
+    100% {
+        background: linear-gradient(to right, #f87171, #38b2ac);
+    }
+}
+
+/* Animasi teks glow */
+@keyframes textGlow {
+    0% {
+        text-shadow: 2px 2px 4px rgb(20, 8, 8);
+    }
+    100% {
+        text-shadow: 4px 4px 8px rgb(12, 3, 3);
+    }
+}
+
+/* Animasi fade-in untuk splash screen */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 body {
     font-family: 'Arial', sans-serif;
 }
